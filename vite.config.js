@@ -21,7 +21,6 @@ export default defineConfig({
     // Extra safeguards for Beacon SDK, Taquito & readable-stream
     'process.env': {},
     'process.version': JSON.stringify('v18.0.0'),
-    'process.versions': JSON.stringify({ node: '18.0.0' }),
     'process.browser': true,
     global: 'globalThis',
   },

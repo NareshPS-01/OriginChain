@@ -17,10 +17,15 @@
       window.process = window.process || {};
       window.process.env = window.process.env || {};
       window.process.version = window.process.version || 'v18.0.0';
-      window.process.versions = window.process.versions || { node: '18.0.0' };
       window.process.browser = true;
       if (!window.process.nextTick) {
         window.process.nextTick = function(fn) { setTimeout(fn, 0); };
+      }
+      if (typeof window.require === 'undefined') {
+        window.require = function(mod) {
+          if (mod === 'node-fetch') return window.fetch;
+          return {};
+        };
       }
     </script>
   </head>
