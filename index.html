@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231b4332' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z'/><path d='M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12'/></svg>" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OriginChain — Tezos Product Provenance & Traceability</title>
+    
+    <!-- Human-crafted typography: Plus Jakarta Sans for UI + Newsreader for editorial provenance + JetBrains Mono for on-chain data -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Crucial Node.js shims for crypto-browserify & readable-stream in browser -->
+    <script>
+      window.global = window.global || window;
+      window.process = window.process || {};
+      window.process.env = window.process.env || {};
+      window.process.version = window.process.version || 'v18.0.0';
+      window.process.versions = window.process.versions || { node: '18.0.0' };
+      window.process.browser = true;
+      if (!window.process.nextTick) {
+        window.process.nextTick = function(fn) { setTimeout(fn, 0); };
+      }
+    </script>
+  </head>
+  <body class="bg-[#FAF9F5] text-stone-900 font-sans antialiased selection:bg-emerald-800 selection:text-white min-h-screen">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #FAF9F5;
+    color: #1C1917;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Subtle organic grain overlay effect */
+.bg-subtle-mesh {
+  background-image: 
+    radial-gradient(at 100% 0%, rgba(226, 236, 230, 0.5) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(247, 245, 238, 0.8) 0px, transparent 60%);
+  background-attachment: fixed;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #D6D3D1;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #A8A29E;
+}
+
+/* Physical label stamp / certificate dashed borders */
+.stamp-border {
+  background-image: radial-gradient(#d6d3d1 1px, transparent 1px);
+  background-size: 8px 8px;
+}
+
+/* Smooth transitions */
+* {
+  border-color: #E7E5E4;
+}
