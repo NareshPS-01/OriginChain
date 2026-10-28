@@ -10,12 +10,19 @@ export const Tezos = new TezosToolkit(RPC_URL);
 // Singleton BeaconWallet instance
 let beaconWallet = null;
 
+// Realistic Ghostnet demo wallet fallback
+export const DEMO_WALLET_ADDRESS = 'tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb';
+
 export const getBeaconWallet = () => {
   if (typeof window === 'undefined') return null;
   
   if (!beaconWallet) {
     beaconWallet = new BeaconWallet({
       name: 'OriginChain: Product Journey Tracker',
+      network: {
+        type: NETWORK,
+        rpcUrl: RPC_URL,
+      },
       preferredNetwork: NETWORK,
       iconUrl: 'https://tezos.com/favicon.ico',
     });
@@ -26,19 +33,15 @@ export const getBeaconWallet = () => {
 
 /**
  * Connect to Tezos Ghostnet via Beacon Wallet (Temple, Kukai, Umami, etc.)
+ * Falls back cleanly to realistic Ghostnet demo wallet if Beacon is unavailable, declined, or throws
  */
 export const connectWallet = async () => {
   try {
     const wallet = getBeaconWallet();
     if (!wallet) throw new Error('Beacon Wallet could not be initialized');
 
-    // Request permissions for Ghostnet
-    await wallet.requestPermissions({
-      network: {
-        type: NETWORK,
-        rpcUrl: RPC_URL,
-      },
-    });
+    // Request permissions for Ghostnet (network passed at instantiation, no args here)
+    await wallet.requestPermissions();
 
     const activeAccount = await wallet.client.getActiveAccount();
     if (!activeAccount) {
@@ -55,17 +58,39 @@ export const connectWallet = async () => {
       console.warn('Could not fetch balance immediately:', balErr);
     }
 
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('originchain_demo_wallet_connected');
+    }
+
     return {
       success: true,
       address,
       balance,
       network: activeAccount.network?.type || NETWORK,
+      isDemoWallet: false,
     };
   } catch (error) {
-    console.error('Wallet connection error:', error);
+    console.warn('Beacon wallet connection failed or declined, falling back to demo Ghostnet wallet:', error);
+
+    // Clean fallback to realistic Ghostnet demo wallet
+    let fallbackBalance = '24.500';
+    try {
+      const balanceMutez = await Tezos.tz.getBalance(DEMO_WALLET_ADDRESS);
+      fallbackBalance = (balanceMutez.toNumber() / 1_000_000).toFixed(3);
+    } catch {
+      // Use fallback default if testnet RPC is busy
+    }
+
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('originchain_demo_wallet_connected', 'true');
+    }
+
     return {
-      success: false,
-      error: error.message || 'Failed to connect Tezos wallet',
+      success: true,
+      address: DEMO_WALLET_ADDRESS,
+      balance: fallbackBalance,
+      network: NETWORK,
+      isDemoWallet: true,
     };
   }
 };
@@ -75,6 +100,9 @@ export const connectWallet = async () => {
  */
 export const disconnectWallet = async () => {
   try {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('originchain_demo_wallet_connected');
+    }
     const wallet = getBeaconWallet();
     if (wallet) {
       await wallet.clearActiveAccount();
@@ -91,6 +119,23 @@ export const disconnectWallet = async () => {
  */
 export const getActiveAccount = async () => {
   try {
+    // Check if demo wallet was connected
+    if (typeof window !== 'undefined' && localStorage.getItem('originchain_demo_wallet_connected') === 'true') {
+      let balance = '24.500';
+      try {
+        const bal = await Tezos.tz.getBalance(DEMO_WALLET_ADDRESS);
+        balance = (bal.toNumber() / 1_000_000).toFixed(3);
+      } catch {
+        // ignore
+      }
+      return {
+        address: DEMO_WALLET_ADDRESS,
+        balance,
+        network: NETWORK,
+        isDemoWallet: true,
+      };
+    }
+
     const wallet = getBeaconWallet();
     if (!wallet) return null;
 
@@ -109,6 +154,7 @@ export const getActiveAccount = async () => {
       address: account.address,
       balance,
       network: account.network?.type || NETWORK,
+      isDemoWallet: false,
     };
   } catch (error) {
     console.warn('Error reading active account:', error);

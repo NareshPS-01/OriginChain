@@ -64,8 +64,10 @@ export default function App() {
         setWalletBalance(res.balance);
         showNotification({
           type: 'success',
-          title: 'Wallet Connected',
-          message: `Connected to Ghostnet (${res.address.slice(0, 6)}...${res.address.slice(-4)})`,
+          title: res.isDemoWallet ? 'Connected (Ghostnet Demo)' : 'Wallet Connected',
+          message: res.isDemoWallet
+            ? `Connected with Ghostnet demo wallet (${res.address.slice(0, 6)}...${res.address.slice(-4)})`
+            : `Connected to Ghostnet (${res.address.slice(0, 6)}...${res.address.slice(-4)})`,
         });
       } else {
         showNotification({

@@ -89,16 +89,19 @@ export default function Navbar({
             </button>
 
             {walletAddress ? (
-              <div className="flex items-center gap-1.5 bg-white border border-stone-200/80 rounded-xl p-1 shadow-subtle">
+              <div className="flex items-center gap-2 bg-white border border-stone-200/80 rounded-xl p-1 shadow-subtle">
                 <a
                   href={`${TZKT_EXPLORER_URL}/${walletAddress}`}
                   target="_blank"
                   rel="noreferrer"
                   title="View on TzKT Ghostnet Explorer"
-                  className="flex items-center gap-2 px-2.5 py-1 text-xs font-mono text-stone-800 hover:text-forest-700 transition"
+                  className="flex items-center gap-2 px-2.5 py-1 text-xs text-stone-800 hover:text-forest-700 transition"
                 >
-                  <span className="w-2 h-2 rounded-full bg-forest-500" />
-                  <span className="font-medium">{shortAddress}</span>
+                  <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-forest-100 text-forest-800 border border-forest-200/70">
+                    <span className="w-1.5 h-1.5 rounded-full bg-forest-600 animate-pulse" />
+                    Connected
+                  </span>
+                  <span className="font-mono font-medium text-stone-700">{shortAddress}</span>
                   {walletBalance && (
                     <span className="hidden sm:inline font-sans text-[11px] font-semibold text-stone-600 bg-stone-100 px-2 py-0.5 rounded-md">
                       {walletBalance} ꜩ
