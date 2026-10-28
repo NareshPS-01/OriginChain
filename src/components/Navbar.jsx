@@ -82,7 +82,7 @@ export default function Navbar({
             >
               <Cpu className="w-3.5 h-3.5 text-stone-500" />
               <span className="font-mono text-[11px] text-stone-600">
-                {CONTRACT_ADDRESS && CONTRACT_ADDRESS !== 'KT1YourContractAddressHere'
+                {CONTRACT_ADDRESS
                   ? `${CONTRACT_ADDRESS.slice(0, 5)}...${CONTRACT_ADDRESS.slice(-4)}`
                   : 'Contract Info'}
               </span>

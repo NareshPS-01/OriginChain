@@ -385,7 +385,7 @@ export default function BuyerView({
                     className="text-forest-700 hover:underline font-semibold flex items-center gap-0.5"
                   >
                     <span>
-                      {CONTRACT_ADDRESS && CONTRACT_ADDRESS !== 'KT1YourContractAddressHere'
+                      {CONTRACT_ADDRESS
                         ? `${CONTRACT_ADDRESS.slice(0, 6)}...${CONTRACT_ADDRESS.slice(-4)}`
                         : 'Ghostnet Ledger'}
                     </span>

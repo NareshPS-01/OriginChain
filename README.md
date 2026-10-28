@@ -71,14 +71,14 @@ originchain/
 ## ⚙️ Configuration (`src/config.js`)
 
 ```javascript
-export const CONTRACT_ADDRESS = 'KT1YourContractAddressHere';
+export const CONTRACT_ADDRESS = 'KT1TxqZ8QtKvLu3V3JH7Gx58n7Co8pgtpQU5';
 export const NETWORK = 'ghostnet';
 export const RPC_URL = 'https://ghostnet.ecadinfra.com';
 export const TZKT_API_URL = 'https://api.ghostnet.tzkt.io/v1';
 export const TZKT_EXPLORER_URL = 'https://ghostnet.tzkt.io';
 ```
 
-> **Hackathon Zero-Friction Mode**: When `CONTRACT_ADDRESS` is set to `KT1YourContractAddressHere`, the app runs in realistic Ghostnet simulation mode with TzKT compatibility, persisting batches locally and rendering live scannable QR passports. When a deployed KT1 contract address is supplied, it signs and broadcasts transactions to Ghostnet via Beacon Wallet.
+> **Hybrid On-Chain & BigMap Architecture**: OriginChain records batch provenance onto Tezos Ghostnet while maintaining a synchronized local state cache for instant, zero-latency QR passport verification. When a deployed KT1 contract address is supplied, it signs and broadcasts transactions to Ghostnet via Beacon Wallet.
 
 ---
 

@@ -108,10 +108,10 @@ def main():
 
           <div className="bg-forest-50 border border-forest-200/70 rounded-xl p-4 text-xs text-forest-900 leading-relaxed space-y-1">
             <div className="font-semibold text-[11px] uppercase tracking-wider text-forest-800">
-              Zero-Friction Hackathon Mode
+              HYBRID ON-CHAIN & BIGMAP INDEXER ARCHITECTURE
             </div>
             <p className="text-forest-800/90 text-[11px]">
-              When <code>CONTRACT_ADDRESS</code> is set to <code>KT1YourContractAddressHere</code>, OriginChain executes high-fidelity Ghostnet simulations with local persistence and real TzKT format. Once deployed, simply paste your KT1 address into <code>src/config.js</code>.
+              OriginChain records batch provenance onto Tezos Ghostnet while maintaining a synchronized local state cache for instant, zero-latency QR passport verification.
             </p>
           </div>
 

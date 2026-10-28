@@ -1,5 +1,5 @@
 // OriginChain Configuration for Tezos Ghostnet
-export const CONTRACT_ADDRESS = 'KT1YourContractAddressHere';
+export const CONTRACT_ADDRESS = 'KT1TxqZ8QtKvLu3V3JH7Gx58n7Co8pgtpQU5';
 export const NETWORK = 'ghostnet';
 
 // Network & API endpoints
